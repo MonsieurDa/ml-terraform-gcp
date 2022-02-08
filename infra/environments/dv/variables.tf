@@ -9,5 +9,5 @@ variable "gcp_project_id" {
 variable "region" {
   type        = string
   default     = "us-west1"
-  description = "Region where the GCE VM Instance resides"
+  description = "Region for ressources"
 }

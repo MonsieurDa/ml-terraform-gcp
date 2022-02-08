@@ -1,13 +1,6 @@
-resource "random_string" "launch_id" {
-  length  = 4
-  special = false
-  upper   = false
+provider "google" {
+  project = var.gcp_project_id
 }
-
-locals {
-  suffix = format("%s-%s", "tf", random_string.launch_id.result)
-}
-
 module "cloudrun" {
   source           = "../../modules/cloudrun"
   poject_id   = var.gcp_project_id
