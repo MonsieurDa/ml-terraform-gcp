@@ -8,7 +8,8 @@ on:
     branches: [ master ]
     paths:
     - 'infra/environments/dv/**'
-
+    
+#ensure that only a single job or workflow using the same concurrency group
 concurrency: 
   group: ${{ github.action == 'ml-terraform-gcp' }}
   cancel-in-progress: true
