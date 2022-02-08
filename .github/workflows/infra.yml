@@ -81,13 +81,7 @@ jobs:
         service_account_email: ${{ secrets.GCP_SA_EMAIL }}
         service_account_key: ${{ secrets.GCP_SA_KEY }}
         export_default_credentials: true
-
-    - name: Download TF Plan
-      uses: actions/download-artifact@v2
-      with:
-        name: tf_plan
-        path: ./infra/environments/dv
-
+        
     # Provision resources via Terraform        
     - name: Terraform Apply
       run: terraform apply -auto-approve
