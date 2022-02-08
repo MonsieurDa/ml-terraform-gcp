@@ -1,6 +1,6 @@
 
 resource "google_cloud_run_service" "main" {
-  # provider                   = google-beta
+  provider                   = google-beta
   project                    = var.project_id
   name                       = var.service_name
   location                   = var.location
