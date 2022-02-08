@@ -1,6 +1,6 @@
 # Deploying ML API on GCP containers registry using Terraform and Github actions 
 
-[![ml-terraform-gcp](https://github.com/MonsieurDa/ml-terraform-gcp/actions/workflows/cloudrun.yml/badge.svg?branch=master)](https://github.com/MonsieurDa/ml-terraform-gcp/actions/workflows/cloudrun.yml)
+[![ml-terraform-gcp](https://github.com/MonsieurDa/ml-terraform-gcp/actions/workflows/infra.yml/badge.svg?branch=master)](https://github.com/MonsieurDa/ml-terraform-gcp/actions/workflows/cloudrun.yml)
 
 
 # This repo is an example of how to use terraform to deploy GCE services
