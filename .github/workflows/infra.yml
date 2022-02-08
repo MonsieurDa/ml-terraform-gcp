@@ -38,9 +38,9 @@ jobs:
           export_default_credentials: true
 
       # Generates an execution plan for Terraform
-      - name: Terraform Format
-        id: fmt
-        run: terraform fmt -check
+      #- name: Terraform Format
+      #  id: fmt
+      #  run: terraform fmt -check
 
 
       - name: Terraform Init
