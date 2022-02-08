@@ -6,6 +6,5 @@ resource "random_string" "launch_id" {
 
 module "cloudrun" {
   source           = "../../modules/cloudrun"
-  project                    = var.gcp_project_id
   }
 
