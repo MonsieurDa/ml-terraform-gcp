@@ -1,8 +1,13 @@
-resource "google_project_service" "enable_cloud_resource_manager_api" {
-  service = ["iam.googleapis.com", "cloudresourcemanager.googleapis.com"]
-  disable_dependent_services = true
+# ressources
+resource "google_project_service" "crm_api" {
+  service = "cloudresourcemanager.googleapis.com"
 }
 
+resource "google_project_service" "iam_api" {
+  service = "iam.googleapis.com"
+}
+
+# modules
 module "cloudrun" {
   source           = "../../modules/cloudrun"
   }
