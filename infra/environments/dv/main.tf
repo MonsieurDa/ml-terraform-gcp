@@ -10,7 +10,5 @@ module "cloudrun" {
   service_name           = var.service_name
   location               = var.location
   image                  = var.image
-
-
-}
+  }
 
