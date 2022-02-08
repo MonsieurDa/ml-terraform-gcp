@@ -1,6 +1,6 @@
 ## --- REQUIRED PARAMETERS ------------------------------------------------------------------------------------------------
 
-variable "gcp_project_id" {
+variable "project_id" {
   type        = string
   default     = "ml-terraform-gcp"
   description = "Id of the GCP project"

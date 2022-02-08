@@ -1,3 +1,8 @@
+variable "project_id" {
+  type        = string
+  default     = "ml-terraform-gcp"
+  description = "Id of the GCP project"
+}
 
 variable "service_name" {
   description = "The name of the Cloud Run service to create"
