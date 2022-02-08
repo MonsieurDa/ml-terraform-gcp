@@ -5,6 +5,4 @@ module "cloudrun" {
   location               = var.location
   image                  = var.image
 
-
 }
-
