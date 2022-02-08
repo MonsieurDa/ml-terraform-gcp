@@ -1,7 +1,7 @@
 
 resource "google_cloud_run_service" "main" {
   provider                   = google-beta
-  project_id                 = var.project_id
+  project                    = var.project_id
   name                       = var.service_name
   location                   = var.location
   autogenerate_revision_name = var.generate_revision_name
