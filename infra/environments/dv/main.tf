@@ -1,4 +1,9 @@
 # ressources
+resource "google_project_service" "gcp_cr" {
+  service = "run.googleapis.com"
+}
+
+
 resource "google_project_service" "crm_api" {
   service = "cloudresourcemanager.googleapis.com"
 }
