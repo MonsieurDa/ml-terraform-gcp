@@ -6,8 +6,5 @@ resource "random_string" "launch_id" {
 
 module "cloudrun" {
   source           = "../../modules/cloudrun"
-  service_name           = var.service_name
-  location               = var.location
-  image                  = var.image
   }
 
