@@ -31,9 +31,9 @@ data "google_iam_policy" "noauth" {
 
 # Enable public access 
 resource "google_cloud_run_service_iam_policy" "noauth" {
-  location    = google_cloud_run_service.default.location
-  project     = google_cloud_run_service.default.project
-  service     = google_cloud_run_service.default.name
+  location    = google_cloud_run_service.var.location
+  project     = google_cloud_run_service.var.project
+  service     = google_cloud_run_service.var.name
 
   policy_data = data.google_iam_policy.noauth.policy_data
 }
