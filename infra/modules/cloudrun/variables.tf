@@ -1,89 +1,135 @@
-## --- REQUIRED PARAMETERS ------------------------------------------------------------------------------------------------
 
-variable "suffix" {
-  description = "An arbitrary suffix that will be added to the end of the resource name(s). For example: an environment name, a business-case name, a numeric id, etc."
+variable "service_name" {
+  description = "The name of the Cloud Run service to create"
   type        = string
-  validation {
-    condition     = length(var.suffix) <= 14
-    error_message = "A max of 14 character(s) are allowed."
+  default     = "ml-terraform-gcp-service"
+}
+
+variable "location" {
+  description = "Cloud Run service deployment location"
+  type        = string
+  default     = "us-west1"
+}
+
+variable "image" {
+  description = "GCR hosted image URL to deploy"
+  type        = string
+  default     = "us-west1"
+}
+
+variable "generate_revision_name" {
+  type        = bool
+  description = "Option to enable revision name generation"
+  default     = true
+}
+
+variable "traffic_split" {
+  type = list(object({
+    latest_revision = bool
+    percent         = number
+    revision_name   = string
+  }))
+  description = "Managing traffic routing to the service"
+  default = [{
+    latest_revision = true
+    percent         = 100
+    revision_name   = "v1-0-0"
+  }]
+}
+
+variable "service_labels" {
+  type        = map(string)
+  description = "A set of key/value label pairs to assign to the service"
+  default     = {}
+}
+
+variable "service_annotations" {
+  type        = map(string)
+  description = "Annotations to the service. Acceptable values all, internal, internal-and-cloud-load-balancing"
+  default = {
+    "run.googleapis.com/ingress" = "all"
   }
 }
 
-variable "instance_name" {
-  type        = string
-  description = "A unique name for the GCE resource. Changing this forces a new resource to be created."
+// Metadata
+variable "template_labels" {
+  type        = map(string)
+  description = "A set of key/value label pairs to assign to the container metadata"
+  default     = {}
 }
 
-## --- OPTIONAL PARAMETERS ------------------------------------------------------------------------------------------------
-
-variable "gcp_project_id" {
-  type        = string
-  description = "Project in which GCE Resources will be created."
+# template spec container
+# resources
+# cpu = (core count * 1000)m
+# memory = (size) in Mi/Gi
+variable "limits" {
+  type        = map(string)
+  description = "Resource limits to the container"
+  default     = {}
+}
+variable "requests" {
+  type        = map(string)
+  description = "Resource requests to the container"
+  default     = {}
 }
 
-variable "zone" {
-  type        = string
-  default     = "b"
-  description = "The zone that the machine should be created in."
+variable "ports" {
+  type = object({
+    name = string
+    port = number
+  })
+  description = "Port which the container listens to (http1 or h2c)"
+  default = {
+    name = "http1"
+    port = 8080
+  }
 }
 
-variable "instance_machine_type" {
-  type        = string
-  default     = "e2-medium"
-  description = "The type of GCE VM instance for each nodes."
-}
-
-variable "network_tags" {
+variable "argument" {
   type        = list(string)
+  description = "Arguments passed to the ENTRYPOINT command, include these only if image entrypoint needs arguments"
   default     = []
-  description = "A list of network tags to attach to the instance."
+}
+
+variable "container_command" {
+  type        = list(string)
+  description = "Leave blank to use the ENTRYPOINT command defined in the container image, include these only if image entrypoint should be overwritten"
+  default     = []
+}
+
+variable "env_vars" {
+  type = list(object({
+    value = string
+    name  = string
+  }))
+  description = "Environment variables (cleartext)"
+  default     = []
+}
+
+variable "env_secret_vars" {
+  type = list(object({
+    name = string
+    value_from = set(object({
+      secret_key_ref = map(string)
+    }))
+  }))
+  description = "[Beta] Environment variables (Secret Manager)"
+  default     = []
+}
+
+variable "volume_mounts" {
+  type = list(object({
+    mount_path = string
+    name       = string
+  }))
+  description = "[Beta] Volume Mounts to be attached to the container (when using secret)"
+  default     = []
 }
 
 
-variable "boot_disk_size" {
-  type        = number
-  default     = 50
-  description = "The size of the boot disk in GigaBytes."
-}
-
-variable "boot_disk_type" {
-  type        = string
-  default     = "pd-standard"
-  description = "The GCE disk type. May be set to \"pd-standard\", \"pd-balanced\" or \"pd-ssd\"."
-}
-
-variable "boot_disk_image" {
-  type        = string
-  default     = "ubuntu-1804-lts"
-  description = "GCE VM Instance Underlying Operating System"
-}
-
-variable "vpc_network_name" {
-  type        = string
-  default     = "default"
-  description = "Virtual Private Cloud in which GCE VM Instance would be created. If you have custom VPC network, supply VPC Network Name."
-}
-
-variable "allow_stopping_for_update" {
-  type        = bool
-  default     = false
-  description = "If true, allows Terraform to stop the instance to update its properties. If you try to update a property that requires stopping the instance without setting this field, the update will fail."
-}
-
-variable "vm_instance_timeout" {
-  type        = string
-  default     = "25m"
-  description = "How long a GCE Instance creation operation is allowed to take before being considered a failure."
-}
-
-variable "static_ip_timeout" {
-  type        = string
-  default     = "5m"
-  description = "How long a Static IP creation operation is allowed to take before being considered a failure."
-}
-
-variable "sa_timeout" {
-  type        = string
-  default     = "10m"
-  description = "How long a Service Account creation operation is allowed to take before being considered a failure."
+// IAM
+variable "members" {
+  type        = list(string)
+  description = "Users/SAs to be given invoker access to the service"
+  default     = []
 }
