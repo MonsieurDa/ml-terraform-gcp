@@ -1,6 +1,3 @@
-provider "google" {
-  project = var.gcp_project_id
-}
 module "cloudrun" {
   source           = "../../modules/cloudrun"
   poject_id   = var.gcp_project_id
