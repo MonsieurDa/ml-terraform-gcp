@@ -10,6 +10,12 @@ locals {
 
 module "cloudrun" {
   source           = "../../modules/cloudrun"
-  project_id   = var.gcp_project_id
+  poject_id   = var.gcp_project_id
+  #equired variables
+  service_name           = var.service_name
+  location               = var.location
+  image                  = var.image
+
+
 }
 
