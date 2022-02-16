@@ -10,8 +10,14 @@ variable "location" {
   default     = "us-west1"
 }
 
+variable "imagename" {
+  description = "GCR hosted image URL to deploy"
+  type        = string
+  default     = "myimage"
+  }
+
 variable "image" {
   description = "GCR hosted image URL to deploy"
   type        = string
-  default     = "us-west1"
+  default     = gcr.io/var.project_id/var.myimage
 }

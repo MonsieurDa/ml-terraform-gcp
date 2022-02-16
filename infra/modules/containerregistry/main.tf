@@ -1,8 +1,13 @@
-resource "google_container_registry" "registry" {
-  project                    = var.project_id
-  location                   = var.location
+provider "google" {
+    project = var.project_id
 }
 
-resource "google_storage_bucket_iam_member" "viewer" {
-  bucket = google_container_registry.registry.id
+
+resource "google_artifact_registry_repository" "my-repo" {
+  provider = google-beta
+  location = var.location
+  image = var.image
+  #repository_id = "REPOSITORY"
 }
+
+
