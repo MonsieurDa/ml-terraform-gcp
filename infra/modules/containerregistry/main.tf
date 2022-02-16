@@ -3,10 +3,10 @@ provider "google" {
 }
 
 
-resource "google_artifact_registry_repository" "my-repo" {
+resource "google_container_registry" "my-repo" {
   provider = google-beta
   location = var.location
-  image = var.image
+  image    = var.image
   #repository_id = "REPOSITORY"
 }
 
