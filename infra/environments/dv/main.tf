@@ -12,8 +12,13 @@ resource "google_project_service" "iam_api" {
 }
 
 
-# modules
+# module
 module "cloudrun" {
   source           = "../../modules/cloudrun"
   }
 
+
+# module
+module "containerregistry" {
+  source           = "../../modules/containerregistry"
+  }
