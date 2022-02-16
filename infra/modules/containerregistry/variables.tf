@@ -19,5 +19,5 @@ variable "imagename" {
 variable "image" {
   description = "GCR hosted image URL to deploy"
   type        = string
-  default     = gcr.io/var.project_id/var.myimage
+  default     = "gcr.io/var.project_id/var.myimage"
 }
